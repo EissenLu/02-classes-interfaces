@@ -1,14 +1,56 @@
 package ohm.softa.a02;
 
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 /**
  * @author Peter Kurfer
  * Created on 10/6/17.
  */
-public class SimpleListImpl implements SimpleList {
+public class SimpleListImpl implements SimpleList, Iterable<Object> {
 
-	private static class Element{
+    Element head;
+    int size = 0;
+
+    public SimpleListImpl(){
+        this.head = null;
+    }
+
+    @Override
+    public void add(Object o) {
+        Element e = new Element(o);
+        Element tmp = head;
+        if(tmp != null){
+            while(tmp.getNext() != null){
+                tmp = tmp.getNext();
+            }
+
+            tmp.setNext(e);
+        }else{
+            head = e;
+        }
+
+        size++;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public SimpleList filter(SimpleFilter filter) {
+        return null;
+    }
+
+
+    @Override
+    public Iterator<Object> iterator() {
+        return new SimplIteratorImpl();
+    }
+
+    private static class Element{
         Object o;
         Element next;
         Element(Object o){
@@ -23,16 +65,20 @@ public class SimpleListImpl implements SimpleList {
 
     }
 
-    public class SimplIteratorImpl implements Iterator {
+    private class SimplIteratorImpl implements Iterator<Object> {
+
+        Element e = head;
 
         @Override
         public boolean hasNext() {
-            return false;
+            return e != null;
         }
 
         @Override
         public Object next() {
-            return null;
+            Object tmp = e.getObj();
+            e = e.getNext();
+            return tmp;
         }
     }
 
