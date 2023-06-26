@@ -39,7 +39,19 @@ public class SimpleListImpl implements SimpleList, Iterable<Object> {
 
     @Override
     public SimpleList filter(SimpleFilter filter) {
-        return null;
+        SimpleList result = new SimpleListImpl();
+        for(Object o : this){
+            if(filter.include(o)){
+                result.add(o);
+            }
+        }
+        return result;
+
+    }
+
+    @Override
+    public boolean include(Object item) {
+        return false;
     }
 
 
