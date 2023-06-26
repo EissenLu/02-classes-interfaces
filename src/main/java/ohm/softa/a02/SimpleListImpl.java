@@ -1,8 +1,6 @@
 package ohm.softa.a02;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 /**
  * @author Peter Kurfer
@@ -61,7 +59,6 @@ public class SimpleListImpl implements SimpleList, Iterable<Object> {
         Element getNext() {return this.next; }
         void setNext(Element e) {this.next = e; }
         Object getObj() {return this.o;}
-        void setObj(Object o) {this.o = o;}
 
     }
 
